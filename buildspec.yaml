@@ -22,4 +22,4 @@ phases:
       - echo Build STARTED
   build:
     commands:
-      - echo Image built 2
+      - echo Image built 23
