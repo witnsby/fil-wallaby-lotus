@@ -25,3 +25,5 @@ phases:
       - echo Image built
       - cd ../
       - ls -lahR ./
+      - cd ../
+      - ls -lahR ./
