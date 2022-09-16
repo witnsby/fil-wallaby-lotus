@@ -22,4 +22,6 @@ phases:
       - echo Build STARTED
   build:
     commands:
-      - echo Image built 1
+      - echo Image built
+      - cd ../
+      - ls -lahR ./
