@@ -1,0 +1,25 @@
+# Do not change version. This is the version of aws buildspec, not the version of your buildspec file.
+version: 0.2
+
+env:
+  variables:
+    IMAGE_NAME: 'wallaby'
+    PROJECT: 'filecoin'
+    ENVIRONMENT: 'mainnet'
+    SUB_ENV: 'glif'
+    SHORT_REGION: 'apn1'
+    AWS_ACCOUNT_ID: '499623857295'
+    DOCKERUHUB_ORGANIZATION: 'protofire'
+
+phases:
+  install:
+    commands:
+      - echo Environment Variables
+      - printenv
+
+  pre_build:
+    commands:
+      - echo Build STARTED
+  build:
+    commands:
+      - echo Image built
