@@ -1,2 +1,2 @@
 # README.md
- just push s
+ just push ss
