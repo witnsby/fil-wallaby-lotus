@@ -30,7 +30,7 @@ phases:
     commands:
       - echo Image built
       - cd ../../glifio/filecoin-docker/
-      - docker build --network host --build-arg NETWORK=$IMAGE_NETWORK --build-arg BRANCH=$CUSTOM_WALLABY_TAG -t $IMAGE_NAME:latest . .
+      - docker build --network host --build-arg NETWORK=$IMAGE_NETWORK --build-arg BRANCH=$CUSTOM_WALLABY_TAG -t $IMAGE_NAME:latest .
 
       - docker tag $IMAGE_NAME:latest $DOCKERUHUB_ORGANIZATION/lotus:wallaby_latest
       - docker push $DOCKERUHUB_ORGANIZATION/lotus:wallaby_latest
