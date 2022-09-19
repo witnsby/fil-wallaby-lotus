@@ -4,12 +4,14 @@ version: 0.2
 env:
   variables:
     IMAGE_NAME: 'wallaby'
+    IMAGE_NETWORK: 'wallabynet'
+    CUSTOM_WALLABY_TAG: 'f8-wallaby-latest'
     PROJECT: 'filecoin'
     ENVIRONMENT: 'mainnet'
     SUB_ENV: 'glif'
     SHORT_REGION: 'apn1'
     AWS_ACCOUNT_ID: '499623857295'
-    DOCKERUHUB_ORGANIZATION: 'protofire'
+    DOCKERUHUB_ORGANIZATION: 'glif'
   secrets-manager:
     DOCKERHUB_USERNAME: "filecoin-mainnet-apn1-glif-dockerhub-glifio:username"
     DOCKERHUB_PASS: "filecoin-mainnet-apn1-glif-dockerhub-glifio:password"
@@ -23,14 +25,12 @@ phases:
   pre_build:
     commands:
       - echo Build STARTED
+      - docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASS
   build:
     commands:
       - echo Image built
       - cd ../../glifio/filecoin-docker/
-      - ls -lahR ./
-      - docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASS
-      - ./build_lotus.sh
-      - docker tag $IMAGE_NAME:latest $DOCKERUHUB_ORGANIZATION/$IMAGE_NAME:latest
-      - docker tag $IMAGE_NAME:$(echo $BUILD_IMAGE_VERSION_TAG) $DOCKERUHUB_ORGANIZATION/$IMAGE_NAME:$(echo $BUILD_IMAGE_VERSION_TAG)
-      - docker push $DOCKERUHUB_ORGANIZATION/$IMAGE_NAME:latest
-      - docker push $DOCKERUHUB_ORGANIZATION/$IMAGE_NAME:$(echo $BUILD_IMAGE_VERSION_TAG)
+      - docker build --network host --build-arg NETWORK=$IMAGE_NETWORK --build-arg BRANCH=$CUSTOM_WALLABY_TAG -t $IMAGE_NAME:latest . .
+
+      - docker tag $IMAGE_NAME:latest $DOCKERUHUB_ORGANIZATION/lotus:wallaby_latest
+      - docker push $DOCKERUHUB_ORGANIZATION/lotus:wallaby_latest
