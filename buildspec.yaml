@@ -23,7 +23,6 @@ phases:
   build:
     commands:
       - echo Image built
-      - cd ../
+      - cd ../../glifio/filecoin-docker/
       - ls -lahR ./
-      - cd ../
-      - ls -lahR ./
+      
